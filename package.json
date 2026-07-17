@@ -1,0 +1,14 @@
+{
+  "name": "br-model-eval",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "Quality x cost benchmark of frontier models through the BharatRouter gateway",
+  "scripts": {
+    "preflight": "node --env-file=.env src/preflight.mjs",
+    "smoke": "node --env-file=.env src/run.mjs --mode smoke",
+    "half": "node --env-file=.env src/run.mjs --mode half",
+    "metrics": "node src/metrics.mjs",
+    "test": "node --test test/"
+  }
+}

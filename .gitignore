@@ -1,0 +1,9 @@
+.env
+node_modules/
+results/raw/
+datasets/cache/
+*.log
+.DS_Store
+
+# derived benchmark data — regenerate with `make datasets` (respects upstream licences)
+datasets/data/
