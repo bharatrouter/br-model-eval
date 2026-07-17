@@ -19,7 +19,12 @@ export function extractPython(text) {
 
 export function gradeCode(text, expect, { timeoutMs = 12_000 } = {}) {
   const solution = extractPython(text);
-  const program = `${solution}\n\n${expect.test}\n\ncheck(${expect.entry_point})\n`;
+  // Keep the stub's imports (canonical HumanEval semantics): the prompt stub carries e.g.
+  // `from typing import List`, and terse models omit it — without this, correct code that
+  // uses List[...] dies with NameError. Prepend any import lines the solution lacks.
+  const stubImports = (expect.stub || '').split('\n').filter(l => /^\s*(import |from )/.test(l));
+  const missing = stubImports.filter(l => !solution.includes(l.trim())).join('\n');
+  const program = `${missing}\n${solution}\n\n${expect.test}\n\ncheck(${expect.entry_point})\n`;
   const dir = mkdtempSync(join(tmpdir(), 'brcode-'));
   const file = join(dir, 'prog.py');
   try {

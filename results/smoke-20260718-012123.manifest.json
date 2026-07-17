@@ -1,0 +1,42 @@
+{
+  "tag": "smoke-20260718-012123",
+  "mode": "smoke",
+  "at": "2026-07-17T20:13:59.902Z",
+  "models": [
+    "gpt-5.6-sol",
+    "claude-fable-5",
+    "kimi-k3"
+  ],
+  "plan": {
+    "coding": {
+      "n": 3,
+      "samples": 1,
+      "max": 6000
+    },
+    "math": {
+      "n": 3,
+      "samples": 1,
+      "max": 20000
+    },
+    "indic": {
+      "n": 3,
+      "samples": 1,
+      "max": 4000
+    },
+    "ifeval": {
+      "n": 3,
+      "samples": 1,
+      "max": 3000
+    },
+    "needle": {
+      "n": 3,
+      "samples": 1,
+      "max": 2000
+    }
+  },
+  "calls": 45,
+  "spentINR": 107.41,
+  "aborted": false,
+  "durationSec": 1346,
+  "rawFile": "results/raw/smoke-20260718-012123.jsonl"
+}

@@ -46,9 +46,16 @@ function loadAxis(axis, n) {
   return items.slice(0, n); // deterministic slice (datasets pre-shuffled where relevant)
 }
 
+// optional axis filter (re-run a subset, e.g. --axes coding,needle)
+const ONLY_AXES = argOf('--axes', null)?.split(',');
+// optional model filter (--models gpt-5.6-sol,kimi-k3)
+const ONLY_MODELS = argOf('--models', null)?.split(',');
+const RUN_MODELS = ONLY_MODELS ? MODELS.filter(m => ONLY_MODELS.includes(m.id)) : MODELS;
+
 // build the full task list
 const tasks = [];
 for (const [axis, cfg] of Object.entries(PLAN)) {
+  if (ONLY_AXES && !ONLY_AXES.includes(axis)) continue;
   const items = loadAxis(axis, cfg.n);
   for (const item of items)
     for (let s = 0; s < cfg.samples; s++)
@@ -63,7 +70,7 @@ const outFile = join(RAW, `${TAG}.jsonl`);
 writeFileSync(outFile, '');
 
 let spent = 0, done = 0, aborted = false;
-const total = tasks.length * MODELS.length;
+const total = tasks.length * RUN_MODELS.length;
 const t0 = Date.now();
 
 async function runOne(task, model) {
@@ -80,7 +87,10 @@ async function runOne(task, model) {
     ttftMs: rec.ttftMs, totalMs: rec.totalMs, brLatencyMs: rec.brLatencyMs,
     decodeTokPerSec: rec.decodeTokPerSec,
     costINR: +inr.toFixed(5), failure: rec.failure, err: rec.err,
-    contentLen: rec.content.length, ts: Date.now(),
+    finishReason: rec.finishReason,
+    contentLen: rec.content.length,
+    content: rec.content.slice(0, 4000),  // stored so grading can be re-run offline, no re-call
+    ts: Date.now(),
   };
   appendFileSync(outFile, JSON.stringify(row) + '\n');
   spent += inr; done++;
@@ -92,7 +102,7 @@ async function runOne(task, model) {
 
 // flatten to (task × model) units and run with a small pool
 const units = [];
-for (const task of tasks) for (const model of MODELS) units.push({ task, model });
+for (const task of tasks) for (const model of RUN_MODELS) units.push({ task, model });
 
 let idx = 0;
 async function worker() {
@@ -103,12 +113,12 @@ async function worker() {
   }
 }
 
-console.error(`RUN ${TAG} | mode=${MODE} | ${units.length} calls (${tasks.length} items×samples × ${MODELS.length} models) | cap ₹${CAP}`);
+console.error(`RUN ${TAG} | mode=${MODE} | ${units.length} calls (${tasks.length} items×samples × ${RUN_MODELS.length} models) | cap ₹${CAP}`);
 await Promise.all(Array.from({ length: POOL }, worker));
 
 const manifest = {
   tag: TAG, mode: MODE, at: new Date().toISOString(),
-  models: MODELS.map(m => m.id), plan: PLAN,
+  models: RUN_MODELS.map(m => m.id), plan: PLAN,
   calls: done, spentINR: +spent.toFixed(2), aborted,
   durationSec: Math.round((Date.now() - t0) / 1000), rawFile: `results/raw/${TAG}.jsonl`,
 };

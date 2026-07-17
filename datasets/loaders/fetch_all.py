@@ -143,33 +143,35 @@ def ifeval():
 
 # ------------------------------------------------------------ long-context: needle (synthetic)
 def needle():
+    # Benign fact-retrieval framing. Earlier "secret access code for the data centre"
+    # phrasing tripped Anthropic's content filter (finish_reason=content_filter, empty
+    # output) — an artifact of prompt design, not a long-context gap. This is a neutral
+    # trivia fact no safety filter objects to. Context sizes are bounded (~1 word ≈ 1.3
+    # tokens here) to keep large-input cost sane while still testing deep retrieval.
     rng = random.Random(42)
     FILLER = ("The quarterly logistics review noted steady throughput across regional hubs. "
               "Inventory turns held within target and no material variance was recorded. ")
     items = []
-    # varied context sizes; the secret code is buried at a random depth
-    sizes = [2000, 4000, 8000, 8000, 12000, 16000, 16000, 24000, 24000, 32000,
-             32000, 40000, 40000, 48000, 8000, 16000, 24000, 32000, 4000, 12000]
-    for i, approx_tokens in enumerate(sizes):
-        code = f"{rng.choice(['INDIGO','SAFFRON','MONSOON','PEACOCK','BANYAN'])}-{rng.randint(1000,9999)}"
-        n_para = max(4, approx_tokens // 30)
+    sizes = [1500, 3000, 5000, 5000, 8000, 8000, 12000, 12000, 16000, 16000,
+             20000, 20000, 24000, 24000, 8000, 12000, 16000, 20000, 3000, 24000]
+    for i, approx_words in enumerate(sizes):
+        fruit = rng.choice(['Alphonso mango', 'Nagpur orange', 'Coorg coffee',
+                            'Darjeeling tea', 'Bhut jolokia chilli'])
+        num = rng.randint(1000, 9999)
+        fact = f"The winning entry number at the {fruit} festival was {num}."
+        n_para = max(4, approx_words // 25)
         depth = rng.randint(1, n_para - 2)
-        paras = []
-        for j in range(n_para):
-            if j == depth:
-                paras.append(f"IMPORTANT: the access code for the Mumbai data centre is {code}. Remember it.")
-            else:
-                paras.append(FILLER * rng.randint(1, 3))
+        paras = [fact if j == depth else FILLER * rng.randint(1, 2) for j in range(n_para)]
         haystack = "\n\n".join(paras)
         items.append({
-            "id": f"needle_{i:02d}_{approx_tokens}",
+            "id": f"needle_{i:02d}_{approx_words}w",
             "axis": "needle",
             "prompt": ("Read the document below and answer the question at the end.\n\n"
                        f"=== DOCUMENT ===\n{haystack}\n=== END ===\n\n"
-                       "Question: What is the access code for the Mumbai data centre? "
-                       "Answer with ONLY the code in the form: ANSWER: <code>"),
-            "expect": {"answer": code},
-            "meta": {"source": "synthetic-needle", "approx_tokens": approx_tokens, "depth_para": depth},
+                       f"Question: What was the winning entry number at the {fruit} festival? "
+                       "Answer with ONLY the number in the form: ANSWER: <number>"),
+            "expect": {"answer": str(num)},
+            "meta": {"source": "synthetic-needle", "approx_words": approx_words, "depth_para": depth},
         })
     save("needle", items)
 
