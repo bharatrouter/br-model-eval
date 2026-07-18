@@ -1,8 +1,11 @@
-# We benchmarked GPT-5.6 Sol, Claude Fable 5 and Kimi K3 through one gateway. Here's what a correct answer actually costs.
+# The cheapest token isn't the cheapest answer
+
+*GPT-5.6 Sol, Claude Fable 5 and Kimi K3 — benchmarked through one neutral gateway and priced per **correct answer**, not per token.*
+
+![The cheapest token isn't the cheapest answer — Kimi K3 has the cheapest tokens but GPT-5.6 Sol is cheapest per correct answer](../charts/hero.png)
 
 > **Draft** for `site/src/pages/blog/` — not yet published. Numbers are from run
-> `merged-v2` (2026-07-18), 570 graded calls, ~₹3.1k of BYOK spend. Hero image = the
-> quality-×-cost frontier (`charts/report.html`).
+> `merged-v2` (2026-07-18), 570 graded calls, ~₹3.1k of BYOK spend.
 
 Every week there's a new leaderboard telling you which model is *smartest*. Almost none of
 them tell you what being smart **costs** — and for anyone actually shipping, that's the whole
@@ -92,6 +95,20 @@ Two things worth sitting with:
   user hitting a refusal gets no answer, but it's a *deliverability* gap, not a knowledge gap.
   (More on this below — it bit us twice.)
 
+## Why the cheapest token isn't the cheapest answer
+
+Here's the twist that names this post. **Kimi K3 has the cheapest tokens of the three** — $3/$15 per million in/out, versus Sol's $5/$30 and Fable's $10/$50 (verified to the cent against Anthropic, Moonshot and OpenRouter list prices). Yet Kimi lands *more* expensive per correct answer than Sol.
+
+The reason is **verbosity**. You pay per token, but you buy correct answers — and a model that thinks out loud burns tokens getting there:
+
+| | median output / answer | reasoning share | total output tokens |
+|---|---|---|---|
+| GPT-5.6 Sol | **80** | ~48% | 42,861 |
+| Claude Fable 5 | 183 | — | 57,328 |
+| Kimi K3 | **350** | **82%** | 183,716 |
+
+Kimi emits **4.3× more output than Sol**, most of it hidden *reasoning* tokens it still pays for. Even at half Sol's per-token rate, 4.3× the volume nets out ~2× the output cost — so the cheapest-per-token model isn't the cheapest per answer. Sol is extraordinarily terse; Kimi over-thinks. The lesson for anyone budgeting a reasoning workload: **token efficiency beats token price.**
+
 ## The content-filter gotcha (a real finding for anyone benchmarking Claude)
 
 Our first run had Fable scoring **0% on long-context** — obviously wrong. The cause: our
@@ -129,7 +146,9 @@ numbers.
 
 *Methodology, raw per-request data and grading code are in the
 [br-model-eval repo](https://github.com/bharatrouter/br-model-eval). Grading is deterministic; ₹ figures are computed from
-realized-route token counts (BYOK bills ₹0 on BR, so we compute the true cost). Runs are
-compute-heavy because all three models emit hidden reasoning tokens on hard problems — we
-report timeouts as their own failure mode, never as wrong answers. Total spend to produce
-these numbers: ~₹3.1k.*
+realized-route token counts (BYOK bills ₹0 on BR, so we compute the true cost). **Caching
+caveat:** Fable and Kimi offer 90% prompt-caching discounts on input tokens; we don't cache
+(each request is independent, applied equally to all), and it wouldn't change the ranking —
+the cost here is dominated by output, which caching never discounts. Runs are compute-heavy
+because all three models emit hidden reasoning tokens on hard problems — we report timeouts
+as their own failure mode, never as wrong answers. Total spend: ~₹3.1k.*
