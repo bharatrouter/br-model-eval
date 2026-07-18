@@ -32,7 +32,7 @@ touch the benchmark repo. One `br-` key drives all three.
 ## Steps
 
 ```bash
-git clone <repo> && cd br-model-eval
+git clone https://github.com/bharatrouter/br-model-eval && cd br-model-eval
 cp .env.example .env          # paste your br- key
 make datasets                 # fetch HumanEval, AIME-2025, Global-MMLU-Hindi, IFEval + build needles
 make preflight                # funding canary: one tiny call per model, aborts if any is dry

@@ -117,7 +117,7 @@ Everything here is one command away; your provider keys stay in BharatRouter's v
 the repo.
 
 ```bash
-git clone <repo> && cd br-model-eval
+git clone https://github.com/bharatrouter/br-model-eval && cd br-model-eval
 cp .env.example .env    # your br- key
 make datasets && make preflight && make half && make metrics && make charts
 ```
@@ -128,7 +128,7 @@ numbers.
 ---
 
 *Methodology, raw per-request data and grading code are in the
-[br-model-eval repo]({{repo link}}). Grading is deterministic; ₹ figures are computed from
+[br-model-eval repo](https://github.com/bharatrouter/br-model-eval). Grading is deterministic; ₹ figures are computed from
 realized-route token counts (BYOK bills ₹0 on BR, so we compute the true cost). Runs are
 compute-heavy because all three models emit hidden reasoning tokens on hard problems — we
 report timeouts as their own failure mode, never as wrong answers. Total spend to produce
