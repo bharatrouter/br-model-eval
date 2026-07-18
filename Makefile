@@ -31,7 +31,7 @@ charts:
 	node src/charts.mjs
 
 test:
-	node --test test/
+	node --test test/*.test.js
 
 clean:
 	rm -rf results/raw/* results/*.manifest.json

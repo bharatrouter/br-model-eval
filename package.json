@@ -9,6 +9,6 @@
     "smoke": "node --env-file=.env src/run.mjs --mode smoke",
     "half": "node --env-file=.env src/run.mjs --mode half",
     "metrics": "node src/metrics.mjs",
-    "test": "node --test test/"
+    "test": "node --test test/*.test.js"
   }
 }

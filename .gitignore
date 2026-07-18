@@ -7,3 +7,4 @@ datasets/cache/
 
 # derived benchmark data — regenerate with `make datasets` (respects upstream licences)
 datasets/data/
+results/*.manifest.json
