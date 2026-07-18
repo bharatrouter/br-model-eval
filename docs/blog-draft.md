@@ -2,6 +2,8 @@
 
 *GPT-5.6 Sol, Claude Fable 5 and Kimi K3 — benchmarked through one neutral gateway and priced per **correct answer**, not per token.*
 
+<sub>**Part 1 of 2 — Single-turn.** Part 2 puts the same three models inside a real coding agent and asks whether terse still wins when verbosity compounds across turns.</sub>
+
 ![The cheapest token isn't the cheapest answer — Kimi K3 has the cheapest tokens but GPT-5.6 Sol is cheapest per correct answer](../charts/hero.png)
 
 > **Draft** for `site/src/pages/blog/` — not yet published. Numbers are from run
@@ -141,6 +143,15 @@ make datasets && make preflight && make half && make metrics && make charts
 
 Full recipe in the [cookbook]({{cookbook link}}). Change one model name, re-run, get your own
 numbers.
+
+## Next: does terse still win inside a real coding agent?
+
+This was single-turn — one prompt, one answer. But most real work happens in an *agent*:
+read the repo, plan, edit, run the tests, read the error, try again. Verbosity that costs you
+once here costs you *every turn* there. **In Part 2, we drop the same three models into a real
+coding harness (BharatRouter → OpenCode) and measure ₹-per-*task* and solve-rate** — to find
+out whether Sol's terseness still wins when the tokens compound, or whether Kimi's
+self-correction earns its keep. Subscribe / check back.
 
 ---
 
