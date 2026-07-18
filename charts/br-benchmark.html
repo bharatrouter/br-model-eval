@@ -68,7 +68,7 @@
   <div class="col">
     <p class="eyebrow">BharatRouter · Frontier-model benchmark</p>
     <h1>One gateway, three flagships — what a correct answer actually costs.</h1>
-    <p class="thesis">GPT-5.6 Sol, Claude Fable 5 and Kimi K3, run through a single neutral endpoint and graded deterministically. <b>The new OpenAI flagship wins both axes at once — most accurate and cheapest per correct answer.</b> The open-weight challenger beats one of the proprietary flagships outright.</p>
+    <p class="thesis">GPT-5.6 Sol, Claude Fable 5 and Kimi K3, run through a single neutral endpoint and graded deterministically. <b>The new OpenAI flagship wins both axes at once — most accurate and cheapest per correct answer.</b> And the twist that matters for your bill: <b>Kimi K3 has the cheapest tokens of the three, yet the priciest per-token model isn't the priciest per answer</b> — because what you pay for is <i>output</i>, and output efficiency, not sticker price, decides cost.</p>
 
     <div class="tiles" id="tiles"></div>
 
@@ -81,6 +81,13 @@
     <div class="card scrollx"><table id="matrix"></table></div>
     <p class="cap">Each benchmark is standard and public; grading is deterministic (code execution, exact-match, programmatic checks) — no LLM judge. Bar length = accuracy; <span class="lead">gold</span> marks the per-axis leader.</p>
 
+    <h2>Why the cheapest token isn't the cheapest answer</h2>
+    <div class="card" style="padding:22px 20px">
+      <p style="margin:0 0 18px;color:var(--muted);font-size:14px">You pay per <b style="color:var(--ink)">token</b>, but you buy <b style="color:var(--ink)">correct answers</b> — and a model that thinks out loud burns tokens getting there. Median output <em>per answer</em>:</p>
+      <div id="verbosity"></div>
+      <p class="cap" style="margin-top:16px">Kimi has the cheapest tokens ($3/$15 per M vs Sol's $5/$30) but emits <b>4.3×</b> more output — <b>82% of it hidden reasoning</b> it still pays for — so it lands pricier per correct answer. Terse beats cheap.</p>
+    </div>
+
     <div class="note">
       <h3>What we caught before trusting these numbers</h3>
       <p style="margin:0;color:var(--muted)">The first run produced three plausible-but-wrong results. Each was a measurement artifact, not a capability gap — found and fixed before publishing:</p>
@@ -92,7 +99,7 @@
     </div>
 
     <div class="foot">
-      <b>Method.</b> 5 axes — HumanEval (coding), AIME 2025 (math), Global-MMLU Hindi (Indic), synthetic needle (long-context), IFEval (instruction-following). Every call routed through <code>api.bharatrouter.com</code> with one <code>br-</code> key; provider keys stay in BharatRouter's BYOK vault. Accuracy shown with 95% Wilson confidence intervals; gaps inside the interval are ties. ₹ is computed from realized-route token counts (BYOK bills ₹0 on BR). 570 graded calls · ~₹3.1k for the final dataset. Measures auto-gradable capability — not writing quality or taste.
+      <b>Method.</b> 5 axes — HumanEval (coding), AIME 2025 (math), Global-MMLU Hindi (Indic), synthetic needle (long-context), IFEval (instruction-following). Every call routed through <code>api.bharatrouter.com</code> with one <code>br-</code> key; provider keys stay in BharatRouter's BYOK vault. Accuracy shown with 95% Wilson confidence intervals; gaps inside the interval are ties. ₹ is computed from realized-route token counts (BYOK bills ₹0 on BR). Prices validated against Anthropic, Moonshot and OpenRouter list rates — identical to the cent. <b>Caching caveat:</b> Fable and Kimi offer 90% prompt-caching discounts on <i>input</i> tokens; we don't cache (each request is independent, applied equally to all), and it wouldn't change the ranking anyway — the cost here is dominated by <i>output</i>, which caching never discounts. 570 graded calls · ~₹3.1k for the final dataset. Measures auto-gradable capability — not writing quality or taste.
     </div>
   </div>
 </div>
@@ -172,5 +179,19 @@ document.getElementById("legend").innerHTML=MODELS.map(m=>
         <div class="bar" style="width:${v*100}%;background:${m.c}"></div></td>`;}).join("")+"</tr>";
   }
   t.innerHTML=h+"</tbody>";
+})();
+
+// ---- verbosity: median output tokens per answer ----
+(function(){
+  const V=[{id:"gpt-5.6-sol",t:80},{id:"claude-fable-5",t:183},{id:"kimi-k3",t:350}];
+  const max=350, byId=Object.fromEntries(MODELS.map(m=>[m.id,m]));
+  document.getElementById("verbosity").innerHTML=V.map(v=>{
+    const m=byId[v.id];
+    return `<div style="display:flex;align-items:center;gap:12px;margin:11px 0">
+      <div style="width:130px;font-size:13px;font-weight:650;flex:none"><span class="swatch" style="background:${m.c}"></span>${m.label}</div>
+      <div style="flex:1;background:var(--hair);border-radius:6px;height:24px;overflow:hidden">
+        <div style="width:${v.t/max*100}%;height:100%;background:${m.c};border-radius:6px"></div></div>
+      <div style="width:96px;text-align:right;font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums">${v.t} tok</div>
+    </div>`;}).join("");
 })();
 </script>
