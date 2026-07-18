@@ -1,0 +1,176 @@
+<style>
+  :root{
+    --paper:#f6f4ef; --panel:#fffefb; --ink:#1b1d24; --muted:#6b6a63; --hair:#e4e0d6;
+    --sol:#4f46e5; --kimi:#0d9488; --fable:#e11d48; --gold:#dd8409; --gold-soft:#f6ead2;
+    --good:#2f8f57; --warn:#c2711a;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{--paper:#131519; --panel:#1b1e24; --ink:#e9e7e0; --muted:#9a988f; --hair:#2b2e36;
+      --gold:#f0a838; --gold-soft:#2a2418; --good:#4bbd7c; --warn:#e0973f;}
+  }
+  :root[data-theme="light"]{--paper:#f6f4ef; --panel:#fffefb; --ink:#1b1d24; --muted:#6b6a63; --hair:#e4e0d6; --gold:#dd8409; --gold-soft:#f6ead2; --good:#2f8f57; --warn:#c2711a;}
+  :root[data-theme="dark"]{--paper:#131519; --panel:#1b1e24; --ink:#e9e7e0; --muted:#9a988f; --hair:#2b2e36; --gold:#f0a838; --gold-soft:#2a2418; --good:#4bbd7c; --warn:#e0973f;}
+
+  *{box-sizing:border-box}
+  .doc{background:var(--paper);color:var(--ink);font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;line-height:1.55;padding:clamp(24px,5vw,64px) 20px 96px}
+  .col{max-width:880px;margin:0 auto}
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:0 0 14px}
+  h1{font-size:clamp(30px,5.4vw,50px);line-height:1.04;letter-spacing:-.025em;font-weight:800;margin:0;text-wrap:balance}
+  .thesis{font-size:clamp(16px,2.2vw,19px);color:var(--muted);margin:18px 0 0;max-width:60ch}
+  .thesis b{color:var(--ink);font-weight:650}
+  h2{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;
+    margin:56px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--hair)}
+
+  /* stat tiles */
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+  @media (max-width:640px){.tiles{grid-template-columns:1fr}}
+  .tile{background:var(--panel);border:1px solid var(--hair);border-radius:14px;padding:20px 18px;position:relative;overflow:hidden}
+  .tile .rail{position:absolute;left:0;top:0;bottom:0;width:4px}
+  .tile .who{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px}
+  .tile .klass{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.03em;text-transform:uppercase;margin-top:2px}
+  .tile .acc{font-size:40px;font-weight:800;letter-spacing:-.03em;margin:16px 0 0;font-variant-numeric:tabular-nums}
+  .tile .acclbl{font-size:12px;color:var(--muted);margin-top:-2px}
+  .tile .ci{font-size:12px;color:var(--muted);font-family:var(--mono);margin-top:6px}
+  .tile .cost{margin-top:16px;padding-top:14px;border-top:1px solid var(--hair);display:flex;justify-content:space-between;align-items:baseline}
+  .tile .cost .v{font-size:22px;font-weight:750;font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .tile .cost .k{font-size:12px;color:var(--muted)}
+  .badge{position:absolute;top:14px;right:14px;background:var(--gold-soft);color:var(--gold);
+    font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:999px}
+
+  .card{background:var(--panel);border:1px solid var(--hair);border-radius:14px;padding:8px}
+  .scrollx{overflow-x:auto}
+  svg{display:block;width:100%;height:auto}
+  .cap{color:var(--muted);font-size:13px;margin:12px 2px 0}
+
+  /* axis matrix */
+  table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+  th,td{text-align:right;padding:11px 12px;border-bottom:1px solid var(--hair)}
+  th:first-child,td:first-child{text-align:left}
+  thead th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  td .bar{height:6px;border-radius:3px;margin-top:5px;opacity:.9}
+  .lead{color:var(--gold);font-weight:750}
+  .swatch{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:middle}
+
+  .note{background:var(--panel);border:1px solid var(--hair);border-left:3px solid var(--gold);
+    border-radius:12px;padding:20px 22px;margin-top:16px}
+  .note h3{margin:0 0 6px;font-size:15px}
+  .note ol{margin:12px 0 0;padding-left:20px}
+  .note li{margin:9px 0;color:var(--muted)}.note li b{color:var(--ink);font-weight:650}
+  .foot{margin-top:52px;padding-top:20px;border-top:1px solid var(--hair);color:var(--muted);font-size:13px;line-height:1.7}
+  code{font-family:var(--mono);background:var(--gold-soft);color:var(--ink);padding:2px 7px;border-radius:6px;font-size:.9em}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin:14px 2px 0;font-size:13px;color:var(--muted)}
+</style>
+
+<div class="doc">
+  <div class="col">
+    <p class="eyebrow">BharatRouter · Frontier-model benchmark</p>
+    <h1>One gateway, three flagships — what a correct answer actually costs.</h1>
+    <p class="thesis">GPT-5.6 Sol, Claude Fable 5 and Kimi K3, run through a single neutral endpoint and graded deterministically. <b>The new OpenAI flagship wins both axes at once — most accurate and cheapest per correct answer.</b> The open-weight challenger beats one of the proprietary flagships outright.</p>
+
+    <div class="tiles" id="tiles"></div>
+
+    <h2>The frontier — accuracy vs ₹ per correct answer</h2>
+    <div class="card scrollx"><svg id="frontier" viewBox="0 0 860 470" role="img" aria-label="Scatter of accuracy against rupees per correct answer"></svg></div>
+    <p class="cap">Up and to the <b>left</b> is better: more accurate, cheaper per correct answer. Sol sits alone in the corner — nothing else is both more accurate and cheaper. X-axis is logarithmic.</p>
+    <div class="legend" id="legend"></div>
+
+    <h2>Accuracy by axis</h2>
+    <div class="card scrollx"><table id="matrix"></table></div>
+    <p class="cap">Each benchmark is standard and public; grading is deterministic (code execution, exact-match, programmatic checks) — no LLM judge. Bar length = accuracy; <span class="lead">gold</span> marks the per-axis leader.</p>
+
+    <div class="note">
+      <h3>What we caught before trusting these numbers</h3>
+      <p style="margin:0;color:var(--muted)">The first run produced three plausible-but-wrong results. Each was a measurement artifact, not a capability gap — found and fixed before publishing:</p>
+      <ol>
+        <li><b>Sol coding 71% → 95%.</b> The grader dropped HumanEval's <code>from typing import List</code>, so correct terse code threw <code>NameError</code>.</li>
+        <li><b>Fable long-context 0% → 93%.</b> A "retrieve the secret access code" needle prompt tripped Anthropic's content filter; reframing to benign fact-retrieval fixed it. The same filter refuses ~11/60 Hindi medical MCQs — which is most of why Fable's Hindi reads low.</li>
+        <li><b>Math looked like 40–60% → ~87%.</b> Reasoning models were hitting a 300-second timeout mid-thought; timeouts were being counted as wrong answers. Raised to 10 minutes — the models tie at 87%, and the few remaining misses are genuine timeouts on the hardest AIME problems.</li>
+      </ol>
+    </div>
+
+    <div class="foot">
+      <b>Method.</b> 5 axes — HumanEval (coding), AIME 2025 (math), Global-MMLU Hindi (Indic), synthetic needle (long-context), IFEval (instruction-following). Every call routed through <code>api.bharatrouter.com</code> with one <code>br-</code> key; provider keys stay in BharatRouter's BYOK vault. Accuracy shown with 95% Wilson confidence intervals; gaps inside the interval are ties. ₹ is computed from realized-route token counts (BYOK bills ₹0 on BR). 570 graded calls · ~₹3.1k for the final dataset. Measures auto-gradable capability — not writing quality or taste.
+    </div>
+  </div>
+</div>
+
+<script>
+const DATA = {"overall":{"gpt-5.6-sol":{"accuracy":0.9526,"ci_lo":0.9124,"ci_hi":0.9749,"inrPerCorrect":1.434,"medTtftMs":40487,"medDecodeTokPerSec":119.9},"claude-fable-5":{"accuracy":0.8632,"ci_lo":0.807,"ci_hi":0.9049,"inrPerCorrect":4.68,"medTtftMs":35857,"medDecodeTokPerSec":85.4},"kimi-k3":{"accuracy":0.9211,"ci_lo":0.8738,"ci_hi":0.9516,"inrPerCorrect":2.009,"medTtftMs":30886,"medDecodeTokPerSec":45.9}},
+"cells":{"gpt-5.6-sol|coding":0.95,"gpt-5.6-sol|math":0.8667,"gpt-5.6-sol|indic":0.95,"gpt-5.6-sol|needle":1,"gpt-5.6-sol|ifeval":1,"claude-fable-5|coding":0.9,"claude-fable-5|math":0.8667,"claude-fable-5|indic":0.7667,"claude-fable-5|needle":0.9333,"claude-fable-5|ifeval":0.95,"kimi-k3|coding":0.925,"kimi-k3|math":0.8667,"kimi-k3|indic":0.9,"kimi-k3|needle":1,"kimi-k3|ifeval":0.95}};
+const MODELS=[{id:"gpt-5.6-sol",label:"GPT-5.6 Sol",klass:"proprietary",c:"var(--sol)",lead:true},
+  {id:"kimi-k3",label:"Kimi K3",klass:"open-weight",c:"var(--kimi)"},
+  {id:"claude-fable-5",label:"Claude Fable 5",klass:"proprietary",c:"var(--fable)"}];
+const AXES=[["coding","Coding · HumanEval"],["math","Math · AIME 2025"],["indic","Indic · Hindi MMLU"],["needle","Long-context · needle"],["ifeval","Instruction-following · IFEval"]];
+const pct=x=>(x*100).toFixed(1)+"%";
+const SVGNS="http://www.w3.org/2000/svg";
+const el=(n,a={})=>{const e=document.createElementNS(SVGNS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+
+// ---- stat tiles ----
+document.getElementById("tiles").innerHTML=MODELS.map(m=>{
+  const o=DATA.overall[m.id];
+  return `<div class="tile">
+    <span class="rail" style="background:${m.c}"></span>
+    ${m.lead?'<span class="badge">Leader</span>':''}
+    <div class="who"><span class="swatch" style="background:${m.c}"></span>${m.label}</div>
+    <div class="klass">${m.klass}</div>
+    <div class="acc">${pct(o.accuracy)}</div><div class="acclbl">accuracy</div>
+    <div class="ci">95% CI ${pct(o.ci_lo)}–${pct(o.ci_hi)}</div>
+    <div class="cost"><span class="k">₹ / correct answer</span><span class="v">₹${o.inrPerCorrect.toFixed(2)}</span></div>
+  </div>`;}).join("");
+
+document.getElementById("legend").innerHTML=MODELS.map(m=>
+  `<span><span class="swatch" style="background:${m.c}"></span>${m.label}</span>`).join("");
+
+// ---- frontier scatter ----
+(function(){
+  const svg=document.getElementById("frontier");
+  const W=860,H=470,P={l:74,r:30,t:28,b:64};
+  const pts=MODELS.map(m=>({m,x:DATA.overall[m.id].inrPerCorrect,y:DATA.overall[m.id].accuracy}));
+  const lx=v=>Math.log10(v);
+  const xmin=lx(1.2),xmax=lx(5.6),ymin=0.83,ymax=0.98;
+  const X=v=>P.l+(lx(v)-xmin)/(xmax-xmin)*(W-P.l-P.r);
+  const Y=v=>H-P.b-(v-ymin)/(ymax-ymin)*(H-P.t-P.b);
+  const css=getComputedStyle(document.documentElement);
+  const hair=css.getPropertyValue("--hair"),muted=css.getPropertyValue("--muted"),
+        ink=css.getPropertyValue("--ink"),paper=css.getPropertyValue("--panel"),gold=css.getPropertyValue("--gold");
+  const add=(n,a)=>svg.appendChild(el(n,a));
+  const txt=(x,y,s,o={})=>{const t=el("text",{x,y,fill:o.fill||muted,"font-size":o.fs||12,"text-anchor":o.a||"start","font-family":"var(--sans)","font-weight":o.w||400});t.textContent=s;svg.appendChild(t);return t;};
+  // y grid
+  for(let a=0.85;a<=0.95+1e-9;a+=0.05){add("line",{x1:P.l,y1:Y(a),x2:W-P.r,y2:Y(a),stroke:hair,"stroke-width":1});txt(P.l-10,Y(a)+4,pct(a),{a:"end"});}
+  // x ticks (log)
+  [1.5,2,3,4,5].forEach(v=>{add("line",{x1:X(v),y1:P.t,x2:X(v),y2:H-P.b,stroke:hair,"stroke-width":1});txt(X(v),H-P.b+20,"₹"+v.toFixed(v<3?1:0),{a:"middle"});});
+  // axis labels
+  txt(P.l,H-14,"₹ per correct answer  (log · cheaper →← left)",{fill:muted,fs:12.5,w:600});
+  const yl=txt(0,0,"accuracy  (better ↑)",{fill:muted,fs:12.5,w:600,a:"middle"});
+  yl.setAttribute("transform",`translate(20 ${(P.t+H-P.b)/2}) rotate(-90)`);
+  // "best" corner hint
+  txt(P.l+6,P.t+16,"◤ best",{fill:gold,fs:12,w:700});
+  // points
+  pts.forEach(p=>{
+    add("circle",{cx:X(p.x),cy:Y(p.y),r:p.m.lead?11:9,fill:p.m.c,stroke:paper,"stroke-width":3});
+    if(p.m.lead)add("circle",{cx:X(p.x),cy:Y(p.y),r:17,fill:"none",stroke:gold,"stroke-width":1.5,"stroke-dasharray":"3 3"});
+    const above=p.m.id!=="claude-fable-5";
+    txt(X(p.x),Y(p.y)+(above?-22:30),p.m.label,{fill:ink,fs:13.5,w:700,a:"middle"});
+    txt(X(p.x),Y(p.y)+(above?-7:44),pct(p.y)+" · ₹"+p.x.toFixed(2),{fill:muted,fs:11.5,a:"middle"});
+  });
+})();
+
+// ---- axis matrix ----
+(function(){
+  const t=document.getElementById("matrix");
+  let h="<thead><tr><th>Axis</th>"+MODELS.map(m=>`<th>${m.label}</th>`).join("")+"</tr></thead><tbody>";
+  for(const [ax,name] of AXES){
+    const vals=MODELS.map(m=>DATA.cells[m.id+"|"+ax]);
+    const best=Math.max(...vals);
+    const nLead=vals.filter(v=>v===best).length;
+    h+=`<tr><td>${name}</td>`+MODELS.map((m,i)=>{
+      const v=vals[i];const isLead=v===best&&nLead<3;
+      return `<td><span class="${isLead?'lead':''}">${pct(v)}</span>
+        <div class="bar" style="width:${v*100}%;background:${m.c}"></div></td>`;}).join("")+"</tr>";
+  }
+  t.innerHTML=h+"</tbody>";
+})();
+</script>

@@ -53,7 +53,8 @@ make metrics && make charts  # -> results/summary.json + charts/report.html
 ```
 
 Requires Node ≥ 20 and [`uv`](https://docs.astral.sh/uv/). The upstream provider keys live in
-BharatRouter's BYOK vault — **no OpenAI/Anthropic/Moonshot keys ever touch this repo.**
+BharatRouter's BYOK vault — **no OpenAI/Anthropic/Moonshot keys ever touch this repo.** Only
+the `br-` gateway key is needed, and it stays in your git-ignored `.env`.
 
 ## Metrics reported
 
