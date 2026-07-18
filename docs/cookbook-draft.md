@@ -54,10 +54,12 @@ make metrics && make charts   # summary.json + a self-contained report.html
 ## Read the result
 
 `results/summary.json` has every number; `charts/report.html` renders the quality-×-cost
-frontier and per-axis bars. The headline you're looking for:
+frontier and per-axis bars. In our run:
 
-> _{{HEADLINE — e.g. "Kimi K3 lands within X points of the proprietary flagships on coding
-> and math at ~1/N the ₹-per-correct."}}_
+> **GPT-5.6 Sol led on both accuracy (95.3%) and ₹-per-correct (₹1.43) — cheapest despite
+> premium per-token pricing, because it's terse. The open-weight Kimi K3 (92.1%, ₹2.01) beat
+> Claude Fable 5 (86.3%, ₹4.68) on both quality and cost.** Math was a three-way tie; the
+> India-first Hindi axis separated them most.
 
 ## Extend it
 

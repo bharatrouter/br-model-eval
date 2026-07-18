@@ -1,22 +1,94 @@
 {
-  "tag": "merged-final",
-  "at": "2026-07-17T23:18:35.138Z",
+  "tag": "merged-v2",
+  "at": "2026-07-18T00:31:56.019Z",
   "models": [
-    "claude-fable-5",
     "gpt-5.6-sol",
+    "claude-fable-5",
     "kimi-k3"
   ],
   "axes": [
-    "math",
     "indic",
     "ifeval",
     "coding",
-    "needle"
+    "needle",
+    "math"
   ],
   "cells": {
-    "claude-fable-5|math": {
-      "model": "claude-fable-5",
-      "axis": "math",
+    "gpt-5.6-sol|indic": {
+      "model": "gpt-5.6-sol",
+      "axis": "indic",
+      "n": 60,
+      "items": 60,
+      "accuracy": 0.95,
+      "ci_lo": 0.863,
+      "ci_hi": 0.9829,
+      "passAt1": 0.95,
+      "passAtK": 0.95,
+      "flakyItems": 0,
+      "costINR": 10.481,
+      "inrPerCorrect": 0.184,
+      "medTtftMs": 40508,
+      "medTotalMs": 40561,
+      "medDecodeTokPerSec": 205,
+      "medOutTok": 6,
+      "medReasoningTok": 0,
+      "failures": {},
+      "providerSplit": {
+        "openai": 60
+      },
+      "errors": 0
+    },
+    "gpt-5.6-sol|ifeval": {
+      "model": "gpt-5.6-sol",
+      "axis": "ifeval",
+      "n": 20,
+      "items": 20,
+      "accuracy": 1,
+      "ci_lo": 0.8389,
+      "ci_hi": 1,
+      "passAt1": 1,
+      "passAtK": 1,
+      "flakyItems": 0,
+      "costINR": 26.23,
+      "inrPerCorrect": 1.311,
+      "medTtftMs": 91140,
+      "medTotalMs": 94075,
+      "medDecodeTokPerSec": 40.7,
+      "medOutTok": 137,
+      "medReasoningTok": 30,
+      "failures": {},
+      "providerSplit": {
+        "openai": 20
+      },
+      "errors": 0
+    },
+    "gpt-5.6-sol|coding": {
+      "model": "gpt-5.6-sol",
+      "axis": "coding",
+      "n": 80,
+      "items": 80,
+      "accuracy": 0.95,
+      "ci_lo": 0.8784,
+      "ci_hi": 0.9804,
+      "passAt1": 0.95,
+      "passAtK": 0.95,
+      "flakyItems": 0,
+      "costINR": 44.368,
+      "inrPerCorrect": 0.584,
+      "medTtftMs": 35089,
+      "medTotalMs": 36992,
+      "medDecodeTokPerSec": 91.3,
+      "medOutTok": 128,
+      "medReasoningTok": 0,
+      "failures": {},
+      "providerSplit": {
+        "openai": 80
+      },
+      "errors": 0
+    },
+    "gpt-5.6-sol|needle": {
+      "model": "gpt-5.6-sol",
+      "axis": "needle",
       "n": 15,
       "items": 15,
       "accuracy": 1,
@@ -25,18 +97,44 @@
       "passAt1": 1,
       "passAtK": 1,
       "flakyItems": 0,
-      "costINR": 168.965,
-      "inrPerCorrect": 11.264,
-      "medTtftMs": 153632,
-      "medTotalMs": 163277,
-      "medDecodeTokPerSec": 216.8,
-      "medOutTok": 1532,
+      "costINR": 125.513,
+      "inrPerCorrect": 8.368,
+      "medTtftMs": 28252,
+      "medTotalMs": 28284,
+      "medDecodeTokPerSec": 250.2,
+      "medOutTok": 8,
       "medReasoningTok": 0,
       "failures": {},
       "providerSplit": {
-        "anthropic": 15
+        "openai": 15
       },
       "errors": 0
+    },
+    "gpt-5.6-sol|math": {
+      "model": "gpt-5.6-sol",
+      "axis": "math",
+      "n": 15,
+      "items": 15,
+      "accuracy": 0.8667,
+      "ci_lo": 0.6212,
+      "ci_hi": 0.9626,
+      "passAt1": 0.8667,
+      "passAtK": 0.8667,
+      "flakyItems": 0,
+      "costINR": 52.996,
+      "inrPerCorrect": 4.077,
+      "medTtftMs": 121728,
+      "medTotalMs": 125019,
+      "medDecodeTokPerSec": 196.2,
+      "medOutTok": 1229,
+      "medReasoningTok": 806,
+      "failures": {
+        "timeout": 2
+      },
+      "providerSplit": {
+        "openai": 14
+      },
+      "errors": 2
     },
     "claude-fable-5|indic": {
       "model": "claude-fable-5",
@@ -142,153 +240,31 @@
       },
       "errors": 0
     },
-    "gpt-5.6-sol|math": {
-      "model": "gpt-5.6-sol",
+    "claude-fable-5|math": {
+      "model": "claude-fable-5",
       "axis": "math",
       "n": 15,
       "items": 15,
-      "accuracy": 0.6,
-      "ci_lo": 0.3575,
-      "ci_hi": 0.8018,
-      "passAt1": 0.6,
-      "passAtK": 0.6,
+      "accuracy": 0.8667,
+      "ci_lo": 0.6212,
+      "ci_hi": 0.9626,
+      "passAt1": 0.8667,
+      "passAtK": 0.8667,
       "flakyItems": 0,
-      "costINR": 23.478,
-      "inrPerCorrect": 2.609,
-      "medTtftMs": 88794,
-      "medTotalMs": 92840,
-      "medDecodeTokPerSec": 262.5,
-      "medOutTok": 613,
-      "medReasoningTok": 317,
+      "costINR": 102.08,
+      "inrPerCorrect": 7.852,
+      "medTtftMs": 114034,
+      "medTotalMs": 116928,
+      "medDecodeTokPerSec": 207.2,
+      "medOutTok": 1030,
+      "medReasoningTok": 0,
       "failures": {
-        "timeout": 6
+        "timeout": 2
       },
       "providerSplit": {
-        "openai": 10
+        "anthropic": 15
       },
-      "errors": 6
-    },
-    "gpt-5.6-sol|indic": {
-      "model": "gpt-5.6-sol",
-      "axis": "indic",
-      "n": 60,
-      "items": 60,
-      "accuracy": 0.95,
-      "ci_lo": 0.863,
-      "ci_hi": 0.9829,
-      "passAt1": 0.95,
-      "passAtK": 0.95,
-      "flakyItems": 0,
-      "costINR": 10.481,
-      "inrPerCorrect": 0.184,
-      "medTtftMs": 40508,
-      "medTotalMs": 40561,
-      "medDecodeTokPerSec": 205,
-      "medOutTok": 6,
-      "medReasoningTok": 0,
-      "failures": {},
-      "providerSplit": {
-        "openai": 60
-      },
-      "errors": 0
-    },
-    "gpt-5.6-sol|ifeval": {
-      "model": "gpt-5.6-sol",
-      "axis": "ifeval",
-      "n": 20,
-      "items": 20,
-      "accuracy": 1,
-      "ci_lo": 0.8389,
-      "ci_hi": 1,
-      "passAt1": 1,
-      "passAtK": 1,
-      "flakyItems": 0,
-      "costINR": 26.23,
-      "inrPerCorrect": 1.311,
-      "medTtftMs": 91140,
-      "medTotalMs": 94075,
-      "medDecodeTokPerSec": 40.7,
-      "medOutTok": 137,
-      "medReasoningTok": 30,
-      "failures": {},
-      "providerSplit": {
-        "openai": 20
-      },
-      "errors": 0
-    },
-    "gpt-5.6-sol|coding": {
-      "model": "gpt-5.6-sol",
-      "axis": "coding",
-      "n": 80,
-      "items": 80,
-      "accuracy": 0.95,
-      "ci_lo": 0.8784,
-      "ci_hi": 0.9804,
-      "passAt1": 0.95,
-      "passAtK": 0.95,
-      "flakyItems": 0,
-      "costINR": 44.368,
-      "inrPerCorrect": 0.584,
-      "medTtftMs": 35089,
-      "medTotalMs": 36992,
-      "medDecodeTokPerSec": 91.3,
-      "medOutTok": 128,
-      "medReasoningTok": 0,
-      "failures": {},
-      "providerSplit": {
-        "openai": 80
-      },
-      "errors": 0
-    },
-    "gpt-5.6-sol|needle": {
-      "model": "gpt-5.6-sol",
-      "axis": "needle",
-      "n": 15,
-      "items": 15,
-      "accuracy": 1,
-      "ci_lo": 0.7961,
-      "ci_hi": 1,
-      "passAt1": 1,
-      "passAtK": 1,
-      "flakyItems": 0,
-      "costINR": 125.513,
-      "inrPerCorrect": 8.368,
-      "medTtftMs": 28252,
-      "medTotalMs": 28284,
-      "medDecodeTokPerSec": 250.2,
-      "medOutTok": 8,
-      "medReasoningTok": 0,
-      "failures": {},
-      "providerSplit": {
-        "openai": 15
-      },
-      "errors": 0
-    },
-    "kimi-k3|math": {
-      "model": "kimi-k3",
-      "axis": "math",
-      "n": 15,
-      "items": 15,
-      "accuracy": 0.4,
-      "ci_lo": 0.1982,
-      "ci_hi": 0.6425,
-      "passAt1": 0.4,
-      "passAtK": 0.4,
-      "flakyItems": 0,
-      "costINR": 13.603,
-      "inrPerCorrect": 2.267,
-      "medTtftMs": 84355,
-      "medTotalMs": 157039,
-      "medDecodeTokPerSec": 37.2,
-      "medOutTok": 1043,
-      "medReasoningTok": 778,
-      "failures": {
-        "timeout": 9
-      },
-      "providerSplit": {
-        "moonshot": 15
-      },
-      "errors": 9
+      "errors": 2
     },
     "kimi-k3|indic": {
       "model": "kimi-k3",
@@ -392,41 +368,68 @@
         "moonshot": 15
       },
       "errors": 0
+    },
+    "kimi-k3|math": {
+      "model": "kimi-k3",
+      "axis": "math",
+      "n": 15,
+      "items": 15,
+      "accuracy": 0.8667,
+      "ci_lo": 0.6212,
+      "ci_hi": 0.9626,
+      "passAt1": 0.8667,
+      "passAtK": 0.8667,
+      "flakyItems": 0,
+      "costINR": 116.209,
+      "inrPerCorrect": 8.939,
+      "medTtftMs": 88501,
+      "medTotalMs": 431158,
+      "medDecodeTokPerSec": 39.6,
+      "medOutTok": 3548,
+      "medReasoningTok": 3116,
+      "failures": {
+        "timeout": 1,
+        "truncated": 1
+      },
+      "providerSplit": {
+        "moonshot": 15
+      },
+      "errors": 1
     }
   },
   "overall": {
-    "claude-fable-5": {
-      "n": 190,
-      "accuracy": 0.8737,
-      "ci_lo": 0.8189,
-      "ci_hi": 0.9136,
-      "costINR": 834.46,
-      "inrPerCorrect": 5.027,
-      "medTtftMs": 36639,
-      "medDecodeTokPerSec": 86.3,
-      "errors": 0
-    },
     "gpt-5.6-sol": {
       "n": 190,
-      "accuracy": 0.9316,
-      "ci_lo": 0.8865,
-      "ci_hi": 0.9596,
-      "costINR": 230.07,
-      "inrPerCorrect": 1.3,
+      "accuracy": 0.9526,
+      "ci_lo": 0.9124,
+      "ci_hi": 0.9749,
+      "costINR": 259.59,
+      "inrPerCorrect": 1.434,
       "medTtftMs": 40487,
-      "medDecodeTokPerSec": 113.3,
-      "errors": 6
+      "medDecodeTokPerSec": 119.9,
+      "errors": 2
+    },
+    "claude-fable-5": {
+      "n": 190,
+      "accuracy": 0.8632,
+      "ci_lo": 0.807,
+      "ci_hi": 0.9049,
+      "costINR": 767.58,
+      "inrPerCorrect": 4.68,
+      "medTtftMs": 35857,
+      "medDecodeTokPerSec": 85.4,
+      "errors": 2
     },
     "kimi-k3": {
       "n": 190,
-      "accuracy": 0.8842,
-      "ci_lo": 0.8309,
-      "ci_hi": 0.9223,
-      "costINR": 249.04,
-      "inrPerCorrect": 1.482,
-      "medTtftMs": 30642,
-      "medDecodeTokPerSec": 46.7,
-      "errors": 10
+      "accuracy": 0.9211,
+      "ci_lo": 0.8738,
+      "ci_hi": 0.9516,
+      "costINR": 351.65,
+      "inrPerCorrect": 2.009,
+      "medTtftMs": 30886,
+      "medDecodeTokPerSec": 45.9,
+      "errors": 2
     }
   }
 }
